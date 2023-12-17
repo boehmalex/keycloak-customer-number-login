@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  keycloak:
+    image: keycloak-adesso-blog
+    container_name: keycloak-adesso-blog
+    environment:
+      - DEBUG_PORT=*:8787
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=password
+    volumes:
+      - type: bind
+        source: ./build/install/keycloak-adesso-blog
+        target: /opt/keycloak/providers
+      - type: bind
+        source: ./realms
+        target: /opt/keycloak/data/import
+    entrypoint:
+      - "/opt/keycloak/bin/kc.sh"
+      - "start-dev"
+      - "--debug"
+      - "--import-realm"
+    ports:
+      - "8080:8080"
+      - "8787:8787"
+    build: .
+  mail-catcher:
+    image: schickling/mailcatcher
+    container_name: mail-catcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"

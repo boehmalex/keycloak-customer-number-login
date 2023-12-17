@@ -17,19 +17,12 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
-//    distribute {
-//        transitive false
-//    }
-//    implementation {
-//        extendsFrom(distribute)
-//    }
 }
 
 distributions {
     main {
         contents {
             from jar // copies the extension jar
-//            from(project.configurations.distribute) // copies distributable dependencies
         }
     }
 }

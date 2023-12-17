@@ -682,6 +682,7 @@
     "strictTransportSecurity": "max-age=31536000; includeSubDomains"
   },
   "smtpServer": {},
+  "loginTheme": "adesso",
   "eventsEnabled": false,
   "eventsListeners": [
     "jboss-logging"
@@ -852,8 +853,11 @@
       }
     ]
   },
-  "internationalizationEnabled": false,
-  "supportedLocales": [],
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "de"
+  ],
+  "defaultLocale": "de",
   "authenticationFlows": [
     {
       "id": "868c5610-940a-43ef-8d48-ff10754192a3",

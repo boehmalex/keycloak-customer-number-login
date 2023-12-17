@@ -10,6 +10,9 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=password
     volumes:
       - type: bind
+        source: ./src/main/themes/adesso
+        target: /opt/keycloak/themes/adesso
+      - type: bind
         source: ./build/install/keycloak-adesso-blog
         target: /opt/keycloak/providers
       - type: bind

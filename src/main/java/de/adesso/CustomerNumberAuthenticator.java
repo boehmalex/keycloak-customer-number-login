@@ -8,18 +8,12 @@ import org.keycloak.authentication.AuthenticationFlowError;
 import org.keycloak.authentication.Authenticator;
 import org.keycloak.authentication.authenticators.browser.UsernamePasswordForm;
 import org.keycloak.models.UserModel;
-import org.keycloak.policy.PasswordPolicyManagerProvider;
-import org.keycloak.policy.PolicyError;
 import org.keycloak.services.messages.Messages;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.keycloak.authentication.AuthenticationFlowError.CREDENTIAL_SETUP_REQUIRED;
 import static org.keycloak.events.Details.USERNAME;
 import static org.keycloak.events.Errors.USER_NOT_FOUND;
-import static org.keycloak.models.UserModel.RequiredAction.UPDATE_PASSWORD;
-import static org.keycloak.representations.idm.CredentialRepresentation.PASSWORD;
 import static org.keycloak.services.managers.AuthenticationManager.FORM_USERNAME;
 
 public class CustomerNumberAuthenticator extends UsernamePasswordForm implements Authenticator {
@@ -46,9 +40,13 @@ public class CustomerNumberAuthenticator extends UsernamePasswordForm implements
 
         UserModel user;
         if (users.isEmpty()) {
-            logger.infof("No keycloak user found for potential customer number '%s'. Trying to load by username.",
-                    username);
+            logger.infof("No keycloak user found for potential customer number '%s'. " +
+                    "Trying to load by username/email.", username);
             user = context.getSession().users().getUserByUsername(context.getRealm(), username);
+
+            if (user == null && context.getRealm().isLoginWithEmailAllowed()) {
+                user = context.getSession().users().getUserByEmail(context.getRealm(), username);
+            }
         } else if (users.size() == 1) {
             user = users.get(0);
             logger.infof("Found keycloak user for customer number %s", username);

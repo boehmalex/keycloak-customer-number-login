@@ -13,7 +13,7 @@ services:
         source: ./src/main/themes/adesso
         target: /opt/keycloak/themes/adesso
       - type: bind
-        source: ./build/install/keycloak-adesso-blog
+        source: ./build/install/keycloak-customer-number-login
         target: /opt/keycloak/providers
       - type: bind
         source: ./realms

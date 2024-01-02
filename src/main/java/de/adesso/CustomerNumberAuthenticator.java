@@ -5,7 +5,6 @@ import jakarta.ws.rs.core.Response;
 import org.jboss.logging.Logger;
 import org.keycloak.authentication.AuthenticationFlowContext;
 import org.keycloak.authentication.AuthenticationFlowError;
-import org.keycloak.authentication.Authenticator;
 import org.keycloak.authentication.authenticators.browser.UsernamePasswordForm;
 import org.keycloak.models.UserModel;
 import org.keycloak.services.messages.Messages;
@@ -16,7 +15,7 @@ import static org.keycloak.events.Details.USERNAME;
 import static org.keycloak.events.Errors.USER_NOT_FOUND;
 import static org.keycloak.services.managers.AuthenticationManager.FORM_USERNAME;
 
-public class CustomerNumberAuthenticator extends UsernamePasswordForm implements Authenticator {
+public class CustomerNumberAuthenticator extends UsernamePasswordForm {
 
     private static final Logger logger = Logger.getLogger(CustomerNumberAuthenticator.class);
 
